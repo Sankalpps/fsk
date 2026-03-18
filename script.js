@@ -1,12 +1,29 @@
 let products = []; // Will be populated from backend
 let categories = ["All"];
 
+const API_BASE = (window.location.protocol === "file:" || window.location.port !== "5501")
+    ? "http://localhost:5501"
+    : "";
+
+function apiUrl(path) {
+    return `${API_BASE}${path}`;
+}
+
+async function parseJsonResponse(res) {
+    const text = await res.text();
+    try {
+        return text ? JSON.parse(text) : {};
+    } catch {
+        throw new Error(`Expected JSON but received: ${text.slice(0, 80)}`);
+    }
+}
+
 // Load products from backend
 async function loadProducts() {
     try {
-        const res = await fetch('/api/products');
+        const res = await fetch(apiUrl('/api/products'));
         if (!res.ok) throw new Error('Failed to fetch products');
-        products = await res.json();
+        products = await parseJsonResponse(res);
         // Recalculate categories after products load
         categories = ["All", ...new Set(products.map((product) => product.category))];
         renderFilters();
@@ -44,7 +61,7 @@ function getCartItems() {
 
 async function syncCartToBackend() {
     try {
-        await fetch('/api/cart', {
+        await fetch(apiUrl('/api/cart'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ items: getCartItems() })
@@ -128,9 +145,9 @@ function renderProducts() {
 
 async function loadProductById(id) {
     try {
-        const res = await fetch(`/api/products/${id}`);
+        const res = await fetch(apiUrl(`/api/products/${id}`));
         if (!res.ok) throw new Error("Failed to fetch product details");
-        const product = await res.json();
+        const product = await parseJsonResponse(res);
         alert(`${product.name}\n${product.category}\n${formatMoney(product.price)}\n\n${product.description}`);
     } catch (error) {
         console.error("Product details error:", error);
@@ -211,13 +228,13 @@ async function handleCheckout() {
         checkoutButton.disabled = true;
         checkoutButton.textContent = "Processing...";
 
-        const res = await fetch("/api/checkout", {
+        const res = await fetch(apiUrl("/api/checkout"), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ items, email })
         });
 
-        const data = await res.json();
+        const data = await parseJsonResponse(res);
         if (!res.ok || !data.ok) {
             throw new Error(data.error || "Checkout failed");
         }
