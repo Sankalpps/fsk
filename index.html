@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global bazaar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="grain"></div>
+    <!-- <div class="topbar">Free shipping on all orders over $60.</div> -->
+
+    <div class="shell">
+        <header>
+            <h1 class="brand">Global Bazzar</h1>
+            <nav>
+                <button class="active">Home</button>
+                <button>Shop</button>
+                <button>Collections</button>
+                <button>Journal</button>
+                <!-- <nav>
+    <button class="active" type="button" onclick="location.href='index.html'">Home</button>
+    <button type="button" onclick="location.href='shop.html'">Shop</button>
+    <button type="button" onclick="location.href='collections.html'">Collections</button>
+    <button type="button" onclick="location.href='journal.html'">Journal</button>
+    </nav> -->
+            </nav>
+            <a href="auth.html" style="text-decoration: none;">
+                <button class="btn-primary" type="button" style="margin-right:12px;">Sign In</button>
+            </a>
+            <button class="cart-button" id="openCart" type="button">
+                Cart <span id="cartCount">(0)</span>
+            </button>
+        </header>
+
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="kicker">Fresh arrivals</p>
+                <h1>Objects that make everyday feel designed.</h1>
+                <p>
+                    Discover thoughtful home pieces, wearables, and desk essentials curated for people who care about
+                    form, function, and lasting quality.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary" type="button">Shop New In</button>
+                    <button class="btn-ghost" type="button">Browse Categories</button>
+                </div>
+            </div>
+
+            <aside class="hero-card">
+                <div class="pill">Editor Pick</div>
+                <h2>Canvas Weekender Bag in Sun Clay</h2>
+                <div class="price-block">
+                    <div>
+                        <strong>$84.00</strong>
+                        <p style="margin: 4px 0 0; opacity: 0.88; font-size: 0.86rem;">Sustainable cotton, limited
+                            batch.</p>
+                    </div>
+                    <button class="btn-primary" style="background:#fff; color:#1f7a76;" type="button"
+                        data-add="7">Add</button>
+                </div>
+            </aside>
+        </section>
+
+        <section>
+            <div class="section-head">
+                <h3>Featured Products</h3>
+                <p>Filter by category and build your cart.</p>
+            </div>
+            <div class="filters" id="filters"></div>
+            <div class="grid" id="productGrid"></div>
+        </section>
+
+        <footer>
+            <span>Atelier Market. Crafted goods for modern living.</span>
+            <span>Support: hello@ateliermarket.example</span>
+        </footer>
+    </div>
+
+    <div class="cart-overlay" id="overlay"></div>
+    <aside class="cart" id="cartPanel" aria-label="Shopping cart">
+        <div class="cart-head">
+            <strong>Your Cart</strong>
+            <button class="close" id="closeCart" type="button">Close</button>
+        </div>
+        <ul class="cart-list" id="cartList"></ul>
+        <div class="cart-foot">
+            <div style="display:flex; justify-content:space-between; font-weight:700;">
+                <span>Total</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout" type="button">Proceed to Checkout</button>
+        </div>
+    </aside>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
