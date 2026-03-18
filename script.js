@@ -1,7 +1,7 @@
 let products = []; // Will be populated from backend
 let categories = ["All"];
 
-const API_BASE = window.location.protocol === "file:"
+const API_BASE = (window.location.protocol === "file:" || window.location.port !== "5501")
     ? "http://localhost:5501"
     : "";
 
