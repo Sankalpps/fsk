@@ -1,6 +1,17 @@
 let products = []; // Will be populated from backend
 let categories = ["All"];
 
+const fallbackProducts = [
+    { id: 1, name: "Stoneware Pour-Over Set", category: "Kitchen", price: 42, visual: "Warm Sand", description: "Hand-glazed ceramic set for slow mornings.", color: "linear-gradient(130deg, #f6d7b0, #f1e8d5)" },
+    { id: 2, name: "Linen Throw Blanket", category: "Home", price: 58, visual: "Terracotta Weave", description: "Airy linen blend with a soft drape.", color: "linear-gradient(130deg, #f1baa2, #f6e2d3)" },
+    { id: 3, name: "Brass Desk Lamp", category: "Office", price: 71, visual: "Brushed Gold", description: "Focused light with a warm matte finish.", color: "linear-gradient(130deg, #edd08f, #f8eed8)" },
+    { id: 4, name: "Everyday Knit Tee", category: "Apparel", price: 34, visual: "Moss Green", description: "Breathable knit built for all-season wear.", color: "linear-gradient(130deg, #b9c8a2, #edf3e3)" },
+    { id: 5, name: "Glass Meal Prep Set", category: "Kitchen", price: 49, visual: "Cloud White", description: "Stackable glass containers with bamboo lids.", color: "linear-gradient(130deg, #d7e0df, #f4f8f8)" },
+    { id: 6, name: "Walnut Catchall Tray", category: "Home", price: 26, visual: "Dark Walnut", description: "Keeps keys, cards, and essentials together.", color: "linear-gradient(130deg, #c1a487, #f2e3d4)" },
+    { id: 7, name: "Canvas Weekender Bag", category: "Apparel", price: 84, visual: "Sun Clay", description: "Spacious carryall with reinforced straps.", color: "linear-gradient(130deg, #ebb29e, #f9e2d7)" },
+    { id: 8, name: "Modular Notebook Set", category: "Office", price: 22, visual: "Slate + Cream", description: "Interchangeable pages for projects and ideas.", color: "linear-gradient(130deg, #d7d4cf, #f6f4ef)" }
+];
+
 const API_BASE = (window.location.protocol === "file:" || window.location.port !== "5501")
     ? "http://localhost:5501"
     : "";
@@ -24,13 +35,19 @@ async function loadProducts() {
         const res = await fetch(apiUrl('/api/products'));
         if (!res.ok) throw new Error('Failed to fetch products');
         products = await parseJsonResponse(res);
+        if (!Array.isArray(products)) {
+            throw new Error('Invalid products response');
+        }
         // Recalculate categories after products load
         categories = ["All", ...new Set(products.map((product) => product.category))];
         renderFilters();
         renderProducts();
     } catch (error) {
         console.error('Error loading products:', error);
-        // Fallback: use dummy data if backend is down
+        products = fallbackProducts;
+        categories = ["All", ...new Set(products.map((product) => product.category))];
+        renderFilters();
+        renderProducts();
     }
 }
 
