@@ -51,6 +51,28 @@ async function loadProducts() {
     }
 }
 
+function updateUserGreeting() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const authLink = document.getElementById('authLink');
+    const userGreeting = document.getElementById('userGreeting');
+    const userName = document.getElementById('userName');
+
+    if (user && user.name) {
+        authLink.style.display = 'none';
+        userGreeting.style.display = 'flex';
+        userName.textContent = `Hi, ${user.name}`;
+    } else {
+        authLink.style.display = 'block';
+        userGreeting.style.display = 'none';
+    }
+}
+
+function logout() {
+    localStorage.removeItem('user');
+    updateUserGreeting();
+    window.location.href = 'index.html';
+}
+
 const cart = new Map();
 
 const filters = document.getElementById("filters");
@@ -292,4 +314,5 @@ window.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     renderFilters();
     renderCart();
+    updateUserGreeting();
 });
