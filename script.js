@@ -12,7 +12,7 @@ const fallbackProducts = [
     { id: 8, name: "Modular Notebook Set", category: "Office", price: 22, visual: "Slate + Cream", description: "Interchangeable pages for projects and ideas.", color: "linear-gradient(130deg, #d7d4cf, #f6f4ef)" }
 ];
 
-const API_BASE = (window.location.protocol === "file:" || window.location.port !== "5501")
+const API_BASE = window.location.hostname === "localhost" 
     ? "http://localhost:5501"
     : "";
 

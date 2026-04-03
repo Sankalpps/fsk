@@ -10,8 +10,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
-console.log('Middleware loaded');
-
 let users = {};
 let orders = [];
 
@@ -25,9 +23,6 @@ let products = [
     { id: 7, name: "Canvas Weekender Bag", category: "Apparel", price: 84, visual: "Sun Clay", description: "Spacious carryall with reinforced straps.", color: "linear-gradient(130deg, #ebb29e, #f9e2d7)" },
     { id: 8, name: "Modular Notebook Set", category: "Office", price: 22, visual: "Slate + Cream", description: "Interchangeable pages for projects and ideas.", color: "linear-gradient(130deg, #d7d4cf, #f6f4ef)" }
 ];
-
-console.log('Products loaded');
-
 app.get('/api/products', (req, res) => {
     res.json(products);
 });
