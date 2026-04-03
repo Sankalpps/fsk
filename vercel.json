@@ -1,9 +1,16 @@
 {
+  "buildCommand": "",
+  "outputDirectory": ".",
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/index.js"
     }
   ],
-  "buildCommand": "npm install"
+  "functions": {
+    "api/index.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  }
 }
